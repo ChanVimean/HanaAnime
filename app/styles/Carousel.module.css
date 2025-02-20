@@ -1,0 +1,98 @@
+/* ActionCar.module.css */
+.carouselContainer {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none; /* Hide scrollbar for IE & Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  justify-content: space-between;
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+.carouselItem {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  margin: 0 5px;
+}
+
+/** Image **/
+.imageFrame { @apply w-full h-[200px] md:h-[220px] overflow-hidden rounded-md bg-slate-500 }
+.imageItem { @apply object-cover w-full h-full hover:scale-110 duration-200 ease-in-out cursor-pointer hover:brightness-75 }
+
+/* Responsive widths */
+@media (min-width: 1024px) { /* Large screens */
+  .carouselItem { width: calc(100vw / 11 - 23px); }
+}
+
+@media (min-width: 768px ) and (max-width: 1023px) { /* Medium screens */
+  .carouselItem { width: calc(100vw / 6 - 5px); }
+}
+
+@media (max-width: 767px) { /* Small screens */
+  .carouselItem { width: calc(100vw / 4 + 20px); }
+}
+
+
+
+/***** Trending *****/
+.coverContainer {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none; /* Hide scrollbar for IE & Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  justify-content: space-between;
+}
+.coverItem {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  margin: 0 5px;
+}
+
+/* Responsive widths for cover images */
+@media (min-width: 1024px) { /* Large screens */
+  .coverItem { width: calc(100vw / 6 - 18px); } /* 6 items per row */
+}
+
+@media (min-width: 768px ) and (max-width: 1023px) { /* Medium screens */
+  .coverItem { width: calc(100vw / 3 - 15px); } /* 3 items per row */
+}
+
+@media (max-width: 767px) { /* Small screens */
+  .coverItem { width: 100vw; } /* 1 item per row */
+}
+
+/** 🖼 Frame & Image Styling for Covers **/
+.coverFrame { 
+  @apply w-full h-[200px] md:h-[160px] overflow-hidden rounded-md bg-slate-500;
+}
+
+.coverImage {
+  @apply object-cover w-full h-full hover:scale-105 duration-200 ease-in-out cursor-pointer hover:brightness-75;
+}
+
+/** Smooth Carousel Scroll **/
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.carouselWrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carouselTrack {
+  display: flex;
+  animation: scroll 160s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.coverContainer:hover .carouselTrack {
+  animation-play-state: paused;
+}

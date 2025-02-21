@@ -1,6 +1,6 @@
 import clientPromise from "../../utils/mongo"
 
-export const getMovies = async () => {
+export const getMoviesForCarousel = async () => {
   try {
     const client = await clientPromise
     const db = client.db("sample_mflix")

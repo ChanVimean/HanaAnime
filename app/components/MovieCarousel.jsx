@@ -67,7 +67,7 @@ const MovieCarousel = ({ title, data, Key, Value }) => {
               // Show Skeleton
               Array.from({ length: visibleItems }).map((_, index) => (
                 <li key={index} className={`${styles.carouselItem}`}>
-                  <Skeleton className={styles.imageFrame} />
+                  <Skeleton className={`${styles.imageFrame} bg-[var(--theme-700)]`} />
                 </li>
               ))
             ) : (

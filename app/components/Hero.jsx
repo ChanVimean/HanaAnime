@@ -1,19 +1,33 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { IoTimeOutline, IoInformationCircleOutline } from "react-icons/io5"
 import { FaPlay } from "react-icons/fa"
 import { GoDotFill } from "react-icons/go"
 import FilterItems from "../utils/FilterItems"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Hero = ({ data, Key, Value }) => {
+
+  const [loading, setLoading] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    if (data && data.length > 0) setTimeout(() => setLoading(false))
+  }, [data])
 
   const filterMovies = useMemo(() => {
     if (!data || data.length === 0) return []
     return FilterItems(data, { [Key]: Value }).slice(0, 5)
   }, [data, Key, Value])
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  if (loading) return (
+    <div className="movieContainer relative w-full h-screen">
+      <Skeleton className="absolute inset-0 w-full h-full bg-[var(--theme-700)]" />
+    </div>
+  )
+
+
 
   if (!filterMovies.length) return null
 

@@ -34,7 +34,7 @@ const Trending = ({ title, data, Key, Value }) => {
             Array.from({ length: 6 }).map((_, index) => (
                 <li key={index} className={styles.coverItem}>
                   <div className={styles.coverFrame}>
-                    <Skeleton className={"w-full h-full"} />
+                    <Skeleton className="w-full h-full bg-[var(--theme-700)]" />
                   </div>
                 </li>
               )

@@ -79,7 +79,7 @@ body {
   }
 }
 
-/*---break---*/
+/**---break---**/
 
 @layer base {
   :root {
@@ -137,7 +137,7 @@ body {
   }
 }
 
-/*---break---*/
+/**---break---**/
 
 @layer base {
   * {

@@ -2,31 +2,22 @@
 
 import { IoIosArrowBack, IoIosArrowForward  } from "react-icons/io"
 
-import { useState, useEffect, useRef } from "react"
-import { getAllMovies } from "../utils/FetchAPI"
-import FilterItems from "../utils/FilterItems"
+import { useMemo, useRef } from "react"
 import styles from "../styles/Carousel.module.css"
+import FilterItems from "../utils/FilterItems"
 
-const MovieCarousel = ({ title, filterKey, filterValue }) => {
 
-  const [filterMovies, setFilterMovies] = useState([])
+const MovieCarousel = ({ title, data, filterKey, filterValue }) => {
+
   const carouselRef = useRef(null)
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const data = await getAllMovies()
+  const filterMovies = useMemo(() => {
+    if (!data || data.length === 0) return []
 
-        const filtered = FilterItems(data, { [filterKey]: filterValue })
-        setFilterMovies(filtered)
+    const filtered = FilterItems(data, { [filterKey]: filterValue })
 
-      } catch (error) {
-        console.error("Error fetching movies: ", error)
-      }
-    }
-
-    fetchMovies()
-  }, [filterKey, filterValue])
+    return filtered
+  }, [data, filterKey, filterValue])
 
   const scrollLeft = () => {
     if (carouselRef.current) carouselRef.current.scrollBy({ left: -carouselRef.current.clientWidth / 10, behavior: "smooth" })

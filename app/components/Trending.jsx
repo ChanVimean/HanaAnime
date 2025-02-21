@@ -1,32 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useMemo } from "react"
 import styles from "../styles/Carousel.module.css"
-import { getAllMovies } from "../utils/FetchAPI"
 import FilterItems from "../utils/FilterItems"
 
-const Trending = ({ title, filterKey, filterValue }) => {
 
-  const [filterMovies, setFilterMovies] = useState([])
+const Trending = ({ title, data, filterKey, filterValue }) => {
+  
+  const filterMovies = useMemo(() => {
+    if (!data || data.length === 0) return []
+
+    const filtered = FilterItems(data, { [filterKey]: filterValue })
+
+    return filtered
+  }, [data, filterKey, filterValue])
+
+  if (!filterMovies.length) return <p>Loading or No Data Found...</p>
+  
   const duplicatedMovies = [...filterMovies, ...filterMovies]
-
-  // ✅ Fetch movies on mount & when filter changes
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const data = await getAllMovies()
-
-        const filtered = FilterItems(data, { [filterKey]: filterValue })
-        setFilterMovies(filtered)
-
-      } catch (error) {
-        console.error("Error fetching movies: ", error)
-      }
-    }
-
-    fetchMovies()
-  }, [filterKey, filterValue])
-
 
   return (
     <div className="text-[var(--theme-50)] py-5 md:p-5 space-y-4">

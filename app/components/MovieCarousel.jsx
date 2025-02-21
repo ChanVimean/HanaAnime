@@ -1,15 +1,39 @@
 "use client"
 
 import { IoIosArrowBack, IoIosArrowForward  } from "react-icons/io"
+import { Skeleton } from "@/components/ui/skeleton"
 
-import { useMemo, useRef } from "react"
+import { useState, useEffect, useMemo, useRef } from "react"
 import styles from "../styles/Carousel.module.css"
 import FilterItems from "../utils/FilterItems"
 
 
 const MovieCarousel = ({ title, data, Key, Value }) => {
 
+  const [loading, setLoading] = useState(true)
+  const [visibleItems, setVisibleItems] = useState(12)
   const carouselRef = useRef(null)
+  const initialized = useRef(false)
+
+  useEffect(() => {
+    if (data && data.length > 0) setTimeout(() => setLoading(false), 1000)
+  }, [data])
+
+  useEffect(() => {
+    const updateVisibleItems = () => {
+      if (carouselRef.current) {
+        const containerWidth = carouselRef.current.clientWidth
+        const itemWdith = 200
+        const newVisibleItems = Math.floor(containerWidth / itemWdith) || 1
+
+        if (!loading) setVisibleItems(newVisibleItems)
+      }
+    }
+
+    updateVisibleItems()
+    window.addEventListener("resize", updateVisibleItems)
+    return () => window.removeEventListener("resize", updateVisibleItems)
+  }, [loading])
 
   const filterMovies = useMemo(() => {
     if (!data || data.length === 0) return []
@@ -38,21 +62,28 @@ const MovieCarousel = ({ title, data, Key, Value }) => {
         >
           <IoIosArrowBack />
         </button>
-        <ul ref={carouselRef}
-            className={`${styles.carouselContainer} scrollbar-hide`}
-        >
-          {
-            filterMovies.map((movie, index) =>
-              <li key={`${movie._id}-${index}`}
-                  className={`${styles.carouselItem}`}
-              >
-                <div className={styles.imageFrame}>
-                  <img src={movie.thumbnail}
-                       alt={movie.title}
-                       className={styles.imageItem}
-                  />
-                </div>
-              </li>
+        <ul ref={carouselRef} className={`${styles.carouselContainer} scrollbar-hide`}>
+          { loading ? (
+              // Show Skeleton
+              Array.from({ length: visibleItems }).map((_, index) => (
+                <li key={index} className={`${styles.carouselItem}`}>
+                  <Skeleton className={styles.imageFrame} />
+                </li>
+              ))
+            ) : (
+              // Show actual movies
+              filterMovies.map((movie, index) =>
+                <li key={`${movie._id}-${index}`}
+                    className={`${styles.carouselItem}`}
+                >
+                  <div className={styles.imageFrame}>
+                    <img src={movie.thumbnail}
+                        alt={movie.title}
+                        className={styles.imageItem}
+                    />
+                  </div>
+                </li>
+              )
             )
           }
         </ul>

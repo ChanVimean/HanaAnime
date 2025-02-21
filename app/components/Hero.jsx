@@ -18,13 +18,13 @@ const Hero = ({ data, Key, Value }) => {
   if (!filterMovies.length) return null
 
   return (
-    <div className="relative text-[var(--theme-50)] w-full  h-[25vh] md:h-[50vh] lg:h-[70vh] overflow-hidden">
+    <div className="movieContainer">
       <ul className="absolute inset-0 w-full h-full">
         {filterMovies.map((movie, index) => (
           <li key={`${movie._id}-${index}`}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
-              index === currentIndex ? "opacity-100" : "opacity-0"
-            }`}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-500
+                ${index === currentIndex ? "opacity-100" : "opacity-0"}
+              `}
           >
             {/* Movie Background */}
             <img
@@ -34,24 +34,24 @@ const Hero = ({ data, Key, Value }) => {
             />
 
             {/* Movie Info */}
-            <section className="absolute bottom-14 left-14 z-10 space-y-4 max-w-xl">
+            <section className="movieInfo">
 
-              <h1 className="text-[#f4f8fb] text-4xl font-bold">{movie.title}</h1>
+              <h1 className="text-[#f4f8fb] text-lg lg:text-4xl font-bold">{movie.title}</h1>
               <p className="text-[#f4f8fb] flex items-center space-x-2 text-lg">
                 <IoTimeOutline />
-                <span>{movie.duration} mins</span>
+                <span>{movie.duration} min</span>
                 <span>|</span>
                 <span>{movie.release}</span>
               </p>
-              <p className="text-[#f4f8fb] text-sm opacity-80">{movie.description}</p>
+              <p className="movieDescription">{movie.description}</p>
 
               <div className="flex space-x-4">
-                <button className="bg-[var(--theme-500)] text-[#f4f8fb] flex text-lg items-center px-4 py-2 rounded-full space-x-2 transition hover:bg-[var(--theme-600)]">
+                <button className="btnMovie text-[#f4f8fb] bg-[var(--theme-500)] hover:bg-[var(--theme-400)]">
                   <FaPlay />
                   <span>Watch Now</span>
                 </button>
-                <button className="bg-[var(--theme-700)] flex text-lg items-center px-4 py-2 rounded-full space-x-2 transition hover:bg-[var(--theme-800)]">
-                  <IoInformationCircleOutline />
+                <button className="btnMovie bg-[var(--theme-700)]  hover:bg-[var(--theme-800)]">
+                  <IoInformationCircleOutline className="text-2xl" />
                   <span>More Info</span>
                 </button>
               </div>
@@ -61,12 +61,12 @@ const Hero = ({ data, Key, Value }) => {
       </ul>
 
       {/* Dots Navigation */}
-      <div className="hidden md:flex absolute bottom-5 left-1/2 transform -translate-x-1/2 space-x-2">
+      <div className="flex absolute bottom-2 md:bottom-5 left-1/2 transform -translate-x-1/2 space-x-2">
         {filterMovies.map((_, index) => (
           <GoDotFill
             key={index}
             className={`w-6 h-6 lg:w-8 lg:h-8 cursor-pointer transition ${
-              index === currentIndex ? "text-[var(--theme-100)] scale-125" : "text-[var(--theme-600)]"
+              index === currentIndex ? "text-[#f4f8fb] scale-125" : "text-[var(--theme-600)]"
             }`}
             onClick={() => setCurrentIndex(index)}
           />

@@ -11,6 +11,7 @@ export const getMovies = async () => {
         type: 1,
         rating: 1,
         description: 1,
+        duration: 1,
         cover: 1,
         thumbnail: 1,
         video: 1,

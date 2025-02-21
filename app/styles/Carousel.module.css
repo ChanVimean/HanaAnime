@@ -67,7 +67,7 @@
 
 /** 🖼 Frame & Image Styling for Covers **/
 .coverFrame { 
-  @apply w-full h-[200px] md:h-[160px] overflow-hidden rounded-md bg-slate-500;
+  @apply w-full h-[140px] md:h-[160px] overflow-hidden rounded-md bg-slate-500;
 }
 
 .coverImage {

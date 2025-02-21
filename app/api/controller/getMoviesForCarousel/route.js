@@ -10,6 +10,7 @@ export const getMovies = async () => {
         title: 1,
         type: 1,
         rating: 1,
+        description: 1,
         cover: 1,
         thumbnail: 1,
         video: 1,

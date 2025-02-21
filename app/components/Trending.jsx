@@ -5,15 +5,15 @@ import styles from "../styles/Carousel.module.css"
 import FilterItems from "../utils/FilterItems"
 
 
-const Trending = ({ title, data, filterKey, filterValue }) => {
+const Trending = ({ title, data, Key, Value }) => {
   
   const filterMovies = useMemo(() => {
     if (!data || data.length === 0) return []
 
-    const filtered = FilterItems(data, { [filterKey]: filterValue })
+    const filtered = FilterItems(data, { [Key]: Value })
 
     return filtered
-  }, [data, filterKey, filterValue])
+  }, [data, Key, Value])
 
   if (!filterMovies.length) return <p>Loading or No Data Found...</p>
   

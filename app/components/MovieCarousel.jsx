@@ -7,17 +7,17 @@ import styles from "../styles/Carousel.module.css"
 import FilterItems from "../utils/FilterItems"
 
 
-const MovieCarousel = ({ title, data, filterKey, filterValue }) => {
+const MovieCarousel = ({ title, data, Key, Value }) => {
 
   const carouselRef = useRef(null)
 
   const filterMovies = useMemo(() => {
     if (!data || data.length === 0) return []
 
-    const filtered = FilterItems(data, { [filterKey]: filterValue })
+    const filtered = FilterItems(data, { [Key]: Value })
 
     return filtered
-  }, [data, filterKey, filterValue])
+  }, [data, Key, Value])
 
   const scrollLeft = () => {
     if (carouselRef.current) carouselRef.current.scrollBy({ left: -carouselRef.current.clientWidth / 10, behavior: "smooth" })
@@ -42,8 +42,8 @@ const MovieCarousel = ({ title, data, filterKey, filterValue }) => {
             className={`${styles.carouselContainer} scrollbar-hide`}
         >
           {
-            filterMovies.map(movie =>
-              <li key={movie._id}
+            filterMovies.map((movie, index) =>
+              <li key={`${movie._id}-${index}`}
                   className={`${styles.carouselItem}`}
               >
                 <div className={styles.imageFrame}>

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { MoviesForCarousel } from "./utils/FetchAPI"
 import MovieCarousel from "./components/MovieCarousel"
 import Hero from "./components/Hero"
+import Model from "./components/Model"
 
 const Home = () => {
 
@@ -25,6 +26,7 @@ const Home = () => {
   return (
     <>
       <main className="bg-[var(--theme-950)]">
+        <Model />
         <Hero data={movies} Key={"rating"} Value={{ min: 8, max: 10 }} />
         <Trending title="Trending" data={movies} Key="rating" Value={{ min: 7, max: 10 }} />
         <MovieCarousel title="New Releases" data={movies} Key="release" Value={{ min: 2022, max: 2025 }} />

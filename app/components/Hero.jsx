@@ -24,6 +24,15 @@ const Hero = ({ data, Key, Value }) => {
   if (loading) return (
     <div className="movieContainer relative w-full h-screen">
       <Skeleton className="absolute inset-0 w-full h-full bg-[var(--theme-700)]" />
+      <div className="movieInfo">
+        <Skeleton className="h-[20px] w-full md:auto md:h-[64px] bg-[var(--theme-600)]" />
+        <Skeleton className="h-[18px] w-1/2 bg-[var(--theme-500)]" />
+        <Skeleton className="h-[40px] w-full bg-[var(--theme-600)]" />
+        <div className="hidden md:flex space-x-4">
+          <Skeleton className="h-[32px] w-[128px] bg-[var(--theme-500)]" />
+          <Skeleton className="h-[32px] w-[128px] bg-[var(--theme-600)]" />
+        </div>
+      </div>
     </div>
   )
 

@@ -2,10 +2,11 @@
 
 import Trending from "./components/Trending"
 import { useState, useEffect } from "react"
-import { MoviesForCarousel } from "./utils/FetchAPI"
 import MovieCarousel from "./components/MovieCarousel"
 import Hero from "./components/Hero"
 import Model from "./components/Model"
+import { MoviesForCarousel } from "./utils/FetchAPI"
+
 
 const Home = () => {
 

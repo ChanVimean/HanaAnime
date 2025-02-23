@@ -6,14 +6,15 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useState, useEffect, useMemo, useRef } from "react"
 import styles from "../styles/Carousel.module.css"
 import FilterItems from "../utils/FilterItems"
+import Model from "./Model"
 
 
 const MovieCarousel = ({ title, data, Key, Value }) => {
 
   const [loading, setLoading] = useState(true)
   const [visibleItems, setVisibleItems] = useState(12)
+  const [selectedId, setSelectedId] = useState(null)
   const carouselRef = useRef(null)
-  const initialized = useRef(false)
 
   useEffect(() => {
     if (data && data.length > 0) setTimeout(() => setLoading(false), 1000)
@@ -74,6 +75,7 @@ const MovieCarousel = ({ title, data, Key, Value }) => {
               // Show actual movies
               filterMovies.map((movie, index) =>
                 <li key={`${movie._id}-${index}`}
+                    onClick={() => setSelectedId(movie._id)}
                     className={`${styles.carouselItem}`}
                 >
                   <div className={styles.imageFrame}>
@@ -94,6 +96,10 @@ const MovieCarousel = ({ title, data, Key, Value }) => {
           <IoIosArrowForward  />
         </button>
       </section>
+
+      { selectedId && (
+        <Model id={selectedId} onclose={() => setSelectedId(null)} />
+      )}
 
     </div>
   )

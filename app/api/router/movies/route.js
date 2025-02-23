@@ -1,10 +1,9 @@
-
 import { NextResponse } from "next/server"
-import { getMoviesForCarousel } from "../../controller/getMoviesForCarousel/route"
+import { getMovies } from "../../controller/getMovies/route" 
 
 export const GET = async () => {
   try {
-    const movies = await getMoviesForCarousel()
+    const movies = await getMovies()
 
     if (movies.error) return NextResponse.json(
       { error: movies.error },

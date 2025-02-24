@@ -5,10 +5,11 @@ import { FaHeart } from "react-icons/fa"
 import { AiOutlineDislike, AiFillDislike  } from "react-icons/ai"
 
 import { useState, useEffect, useRef, useMemo } from "react"
-import styles from "../styles/globals.css"
+import styles from "../styles/Model.module.css"
 import ReactPlayer from "react-player"
-import Link from "next/link"
 import { FetchSelectedId } from "../utils/FetchAPI"
+import Link from "next/link"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Model = ({ id, onClose }) => {
 
@@ -22,15 +23,18 @@ const Model = ({ id, onClose }) => {
     if (!id) return
 
     const fetchMovie = async () => {
-      const data = await FetchSelectedId(id)
-
-      if (!data || data.error) {
+      try {
+        const data = await FetchSelectedId(id)
+  
+        if (!data || data.error) throw new Error(data?.error || "Movie not found")
+        
+        setMovie(data)
+      } catch (error) {
+        console.error("Fetch Movie Error: ", error)
+        setMovie(null)
+      } finally {
         setLoading(false)
-        return
       }
-      
-      setMovie(data)
-      setLoading(false)
     }
 
     fetchMovie()
@@ -41,6 +45,7 @@ const Model = ({ id, onClose }) => {
       onClose()
     }
   }
+  console.log(document.documentElement.clientHeight, window.innerHeight)
 
   // Handle Close on Click Model
   useEffect(() => {
@@ -56,29 +61,28 @@ const Model = ({ id, onClose }) => {
     return () => document.body.style.overflow = "auto"
   }, [id])
 
-
   if (!id) return null
 
   return (
-    <div
-      // onClick={onClose}
-      className="fixed flex z-50 justify-center items-center inset-0 bg-black/50 backdrop-blur-md text-[var(--theme-50)]"
-    >
+    <div className={styles.modelContainer}>
       {/* PC Screen only */}
-      <div ref={modelRef} className="hidden lg:flex flex-wrap rounded-xl overflow-hidden w-3/5 h-4/5 bg-[var(--theme-900)]">
+      <div ref={modelRef} className={styles.lgScreen}>
 
         {/* Video */}
         <section className="w-4/6 h-1/2 bg-[var(--950)]">
-          {
-            movie?.video && (
-              <ReactPlayer
-                url={movie?.video}
-                playing
-                controls
-                width="100%"
-                height="100%"
-
-              />
+          { 
+            loading ? (
+              <Skeleton className="w-full h-full" />
+            ) : (
+              movie?.video && (
+                <ReactPlayer
+                  url={movie?.video}
+                  playing
+                  controls
+                  width="100%"
+                  height="100%"
+                />
+              )
             )
           }
         </section>
@@ -107,22 +111,39 @@ const Model = ({ id, onClose }) => {
         </section>
 
         {/* Full Details */}
-        <section className="w-4/6 h-1/2 space-y-2 bg-[var(--theme-900)] p-3">
+        <section className={styles.fullDetails}>
+          {
+            loading
+            ? (<Skeleton className="w-1/2 h-8" />)
+            : (<h1 className="text-3xl font-semibold">{movie?.title}</h1>)
+          }
+
           {/* Common Details & Actions */}
-          <h1 className="text-3xl font-semibold">{movie?.title}</h1>
-          <div className="flex justify-between py-2 border-b-2 border-[var(--theme-950)] border-opacity-15">
+          <div className={styles.commonDetails}>
             {/* Left - Info */}
             <div className="w-2/6 overflow-hidden">
-              <p className="flex space-x-2 items-center text-center text-lg font-medium">
+              <div className={`${styles.commonContainer} text-lg font-medium`}>
                 <BsBadge4kFill/>
-                <span>{movie?.type[0]}</span>
-                <span>|</span>
-                <span>{movie?.type[1]}</span>
-              </p>
-              <p className="flex space-x-2 items-center text-center text-md">
+                {
+                  loading
+                    ? (<Skeleton className="w-full h-6 bg-[var(--theme-800)]" />)
+                    : (
+                      <div>
+                        <span>{movie?.type[0]}</span>
+                        <span>|</span>
+                        <span>{movie?.type[1]}</span>
+                      </div>
+                    )
+                }
+              </div>
+              <div className={styles.commonContainer}>
                 <IoTimeOutline />
-                <span>{movie?.duration} mn</span>
-              </p>
+                {
+                  loading
+                  ? (<Skeleton className="w-full h-6 bg-[var(--theme-900)]" />)
+                  : (<span>{movie?.duration} mn</span>)
+                }
+              </div>
             </div>
 
             {/* Right - Action */}
@@ -153,15 +174,15 @@ const Model = ({ id, onClose }) => {
             <span className="font-semibold">Genres:</span>
             <ul className="flex space-x-2 font-medium">
               {
-                movie?.genre?.map((data, index) => 
-                  <li key={index}>{data}</li>
-                )
+                loading
+                ? (<Skeleton className="w-3/5 h-4 bg-[var(--theme-700)]" />)
+                : (movie?.genre?.map((data, index) => <li key={index}>{data}</li>))
               }
             </ul>
           </div>
 
           {/* Description */}
-          <div className="overflow-hidden h-52 pe-2 opacity-75 overflow-y-auto vertical-scrollbar">
+          <div className={`${styles.descriptionContainer} vertical-scrollbar`}>
             <div className="flex justify-between">
               <p className="font-normal">
                 100K
@@ -173,27 +194,45 @@ const Model = ({ id, onClose }) => {
             <h1 className="font-semibold">
               Director/Studio:
               <span className="font-normal ms-2 wrap-btn">
-                <Link href={""}>{movie?.studio}</Link>
+                {
+                  loading
+                 ? (<Skeleton className="w-1/2 h-4 bg-[var(--theme-800)]" />)
+                 : (<Link href={""}>{movie?.studio}</Link>)
+                }
               </span>
             </h1>
-            <p>Rate: {movie?.rating}</p>
-            <p className="space-x-2">
+            <div>Rate: {movie?.rating}</div>
+            <div className="space-x-2">
               Countries & Languages:
               <span className="ms-2">
                 { 
-                  movie?.country?.map((data, index) =>
-                    <span key={index}>{data}{index < movie.country.length - 1 ? ", " : ""}</span>
+                  loading
+                  ? (<Skeleton className="w-1/5 h-4 bg-[var(--theme-700)]" />)
+                  : (
+                      movie?.country?.map((data, index) =>
+                      <span key={index}>{data}{index < movie.country.length - 1 ? ", " : ""}</span>
+                    )
                   )
                 }
-                /
+                <span>/</span>
                 {
-                  movie?.language?.map((data, index) =>
-                    <span key={index}>{data}{index  < movie.language.length - 1 ? ", " : ""}</span>
+                  loading
+                  ? (<Skeleton className="w-1/5 h-4 bg-[var(--theme-800)]" />)
+                  : (
+                      movie?.language?.map((data, index) =>
+                      <span key={index}>{data}{index  < movie.language.length - 1 ? ", " : ""}</span>
+                    )
                   )
                 }
               </span>
-            </p>
-            <p className="mt-2">{movie?.description}</p>
+            </div>
+            <div className="mt-2">
+              {
+                loading
+                ? (<Skeleton className={`${styles.descriptionContainer} bg-[var(--theme-700)]`} />)
+                : (movie?.description)
+              }
+            </div>
           </div>
         </section>
 

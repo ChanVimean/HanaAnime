@@ -1,0 +1,10 @@
+/** Model Container **/
+.modelContainer { @apply fixed flex z-50 justify-center items-center inset-0 w-full min-h-screen h-full bg-black/50 backdrop-blur-md text-[var(--theme-50)] }
+.lgScreen { @apply hidden lg:flex flex-wrap rounded-xl overflow-hidden w-3/5 h-4/5 bg-[var(--theme-900)] }
+
+/** Sections **/
+
+.fullDetails { @apply w-4/6 h-1/2 space-y-2 bg-[var(--theme-900)] p-3 }
+.commonDetails { @apply flex justify-between py-2 border-b-2 border-[var(--theme-950)] border-opacity-15 }
+.commonContainer { @apply flex space-x-2 items-center text-center }
+.descriptionContainer { @apply overflow-hidden h-52 pe-2 opacity-75 overflow-y-auto }

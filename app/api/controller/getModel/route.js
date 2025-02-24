@@ -11,15 +11,14 @@ export const getOneMovie = async (id) => {
     id = id.trim()
 
     if (!ObjectId.isValid(id)) {
-      console.error("INvalid MongoDB ID format: ", id)
+      console.error("Invalid MongoDB ID format: ", id)
       return null
     }
 
     const client = await clientPromise
     const db = client.db("sample_mflix")
-    const objectId = new ObjectId(id)
 
-    const movie = await db.collection("movies").findOne({ _id: objectId })
+    const movie = await db.collection("movies").findOne({ _id: new ObjectId(id) })
 
     if (!movie) return null
 

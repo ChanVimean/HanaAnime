@@ -1,0 +1,8 @@
+/** Container **/
+.BBContainer { @apply fixed bottom-0 left-0 w-full lg:hidden bg-[var(--theme-700)] text-[var(--theme-50)] py-4 px-10 md:px-16 }
+
+/** Items **/
+.BBListContainer { @apply flex justify-between }
+.BBList { @apply flex flex-col items-center space-y-2 }
+.BBIcon { @apply text-4xl md:text-5xl }
+.BBText { @apply text-xl md:text-2xl font-medium }

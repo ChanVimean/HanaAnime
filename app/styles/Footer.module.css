@@ -1,0 +1,27 @@
+/** Container **/
+.FooterContainer { @apply bg-[var(--theme-900)] text-[var(--theme-50)] shadow-inner shadow-slate-700 }
+.FooterMain { @apply flex flex-wrap w-full py-5 px-5 lg:px-10 lg:space-y-0 justify-center lg:justify-between gap-16 }
+.FooterOriginal { @apply text-center text-xl bg-[var(--theme-800)] py-4 pb-32 md:pb-36 lg:pb-4 }
+
+/** Footer Main **/
+.ContainerOneSix { @apply space-y-8 flex-1 min-w-[250px] md:w-1/2 lg:w-1/6 }
+.ContainerThirdSix { @apply space-y-8 flex-1 min-w-[250px] md:w-1/2 lg:w-3/6 }
+
+/** Items **/
+.AboutUsHeader { @apply text-[var(--theme-50)] text-3xl font-semibold text-center lg:text-start }
+.AboutUsText { @apply text-[var(--theme-50)] text-xl }
+.AboutUsListContainer { @apply flex space-x-3 items-center }
+.AboutUsList { @apply text-[var(--theme-50)] text-4xl }
+
+.GenresHeader { @apply text-[var(--theme-50)] text-3xl text-center font-semibold }
+.GenresContainer { @apply flex items-start justify-center space-x-4 }
+
+.CCHeader { @apply text-[var(--theme-50)] text-3xl font-semibold text-center lg:text-start }
+.CCList { @apply flex text-xl items-center }
+
+.SupportHeader { @apply text-[var(--theme-50)] text-3xl font-semibold text-center }
+
+
+
+/** Footer Original **/
+.OriginalLink { @apply text-blue-400 font-medium}

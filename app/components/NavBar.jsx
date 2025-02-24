@@ -12,6 +12,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleTheme } from "../store/Theme"
+import styles from "../styles/NavBar.module.css"
 
 const NavBar = () => {
 
@@ -88,7 +89,7 @@ const NavBar = () => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="bg-[var(--theme-900)] text-[var(--theme-50)] px-3 md:px-20 flex justify-between"
+      className={styles.NarBar}
     >
       {/* Categories Section */}
       <section className="flex items-center gap-x-2">

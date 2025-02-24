@@ -45,7 +45,6 @@ const Model = ({ id, onClose }) => {
       onClose()
     }
   }
-  console.log(document.documentElement.clientHeight, window.innerHeight)
 
   // Handle Close on Click Model
   useEffect(() => {

@@ -1,0 +1,6 @@
+/**** NavBar ****/
+.NarBar { @apply bg-[var(--theme-900)] text-[var(--theme-50)] px-3 md:px-20 flex justify-between }
+
+
+
+

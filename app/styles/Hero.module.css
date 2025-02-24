@@ -1,0 +1,46 @@
+/****** Hero ******/
+.movieContainer { @apply relative text-[var(--theme-50)] w-full  h-[25vh] md:h-[50vh] lg:h-[70vh] overflow-hidden }
+
+/**** Skeleton ****/
+.SkeletonBanner { @apply absolute inset-0 w-full h-full bg-[var(--theme-700)] }
+.SkeletonTitle { @apply h-[20px] w-full md:h-[64px] bg-[var(--theme-600)] }
+.SkeletonDuration { @apply h-[18px] w-1/2 bg-[var(--theme-500)] }
+.SkeletonDescription { @apply h-[40px] w-full bg-[var(--theme-600)] }
+.SkeletonContainer { @apply hidden md:flex space-x-4 }
+.SkeletonWatchNow { @apply h-[32px] w-[128px] bg-[var(--theme-500)] }
+.SkeletonDetail { @apply h-[32px] w-[128px] bg-[var(--theme-600)]}
+
+/** Body **/
+.HeroMain { @apply absolute inset-0 w-full h-full }
+.HeroListContainer { @apply absolute inset-0 w-full h-full transition-opacity duration-500 }
+
+/** Info **/
+.movieInfo { @apply absolute bottom-4 left-4 md:bottom-10 md:left-10 lg:bottom-14 lg:left-14 z-10 space-y-2 md:space-y-4 max-w-xl }
+.InfoTitle { @apply text-[#f4f8fb] text-lg lg:text-4xl font-bold }
+.InfoDuration { @apply text-[#f4f8fb] flex items-center space-x-2 text-lg }
+.InfoWatchNow { @apply hidden md:flex text-lg items-center px-4 py-2 rounded-full space-x-2 transition text-[#f4f8fb] bg-[var(--theme-500)] hover:bg-[var(--theme-400)] }
+.InfoDetail { @apply hidden md:flex text-lg items-center px-4 py-2 rounded-full space-x-2 transition bg-[var(--theme-700)]  hover:bg-[var(--theme-800)] }
+
+
+    /** ✅ FIX: Description now correctly limits to 2 lines **/
+.movieDescription {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Show only 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+  color: #f4f8fb;
+  opacity: 0.8;
+  font-size: 0.875rem; /* text-sm */
+}
+
+@media (max-width: 767px) { /* sm */
+  .movieDescription {
+    display: none;
+  }
+}
+
+/** Dots Navigation **/
+.DotContainer { @apply flex absolute bottom-2 md:bottom-5 left-1/2 transform -translate-x-1/2 space-x-2 }
+.Dots { @apply w-6 h-6 lg:w-8 lg:h-8 cursor-pointer transition }

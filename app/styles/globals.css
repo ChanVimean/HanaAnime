@@ -75,29 +75,6 @@ body {
 .underline-animation { @apply text-xl text-[var(--theme-50)] after:block after:absolute after:h-[2px] after:bg-[var(--theme-50)] after:w-0 after:left-1/2 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 ease-in-out }
 .dropdown-item { @apply hover:bg-[var(--theme-700)] active:bg-[var(--theme-600)] ease-in-out duration-200 p-2 }
 
-/****** Hero ******/
-.btnMovie { @apply hidden md:flex text-lg items-center px-4 py-2 rounded-full space-x-2 transition }
-.movieInfo {@apply absolute bottom-4 left-4 md:bottom-10 md:left-10 lg:bottom-14 lg:left-14 z-10 space-y-2 md:space-y-4 max-w-xl }
-.movieContainer { @apply relative text-[var(--theme-50)] w-full  h-[25vh] md:h-[50vh] lg:h-[70vh] overflow-hidden }
-
-/** ✅ FIX: Description now correctly limits to 2 lines **/
-.movieDescription {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Show only 2 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 90%;
-  color: #f4f8fb;
-  opacity: 0.8;
-  font-size: 0.875rem; /* text-sm */
-}
-
-@media (max-width: 767px) { /* sm */
-  .movieDescription {
-    display: none;
-  }
-}
 
 /**---break---**/
 

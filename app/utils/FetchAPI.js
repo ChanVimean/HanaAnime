@@ -18,6 +18,13 @@ export const MoviesForCarousel = async () => {
 export const FetchSelectedId = async (id) => {
   try {
     const res = await API.get(`/model/${id}`)
+    console.log("API Response, ", res.data)
+
+    if (res.data.error) {
+      console.error(`Movie not found for ID [${id}]`, res.data.error)
+      return null
+    }
+
     return res.data
   } catch (error) {
     console.error(`Failed to fetch selected with ID [${id}]: `, error)

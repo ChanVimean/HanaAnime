@@ -98,7 +98,7 @@ const MovieCarousel = ({ title, data, Key, Value }) => {
       </section>
 
       { selectedId && (
-        <Model id={selectedId} onclose={() => setSelectedId(null)} />
+        <Model id={selectedId} onClose={() => setSelectedId(null)} />
       )}
 
     </div>

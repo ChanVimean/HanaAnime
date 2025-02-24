@@ -48,6 +48,26 @@ body {
   scrollbar-width: none;
 }
 
+/** Custom Vertical Scrollbar **/
+/* Custom Scrollbar */
+.vertical-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.vertical-scrollbar::-webkit-scrollbar-track {
+  background: var(--theme-700); /* Adjust to match your theme */
+  border-radius: 10px;
+}
+
+.vertical-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--theme-500); /* Thumb color */
+  border-radius: 10px;
+}
+
+.vertical-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-400); /* Lighter on hover */
+}
+
 
 /****** Short Cut ******/
 

@@ -4,11 +4,18 @@ const uri = process.env.MONGODB_URI
 
 if (!uri) throw new Error("⚠️ Missing MONGODB_URI in environment variables")
 
-// const options = { useNewUrlParser: true, useUnifiedTopology: true, }
+let client
+let clientPromise
 
-let client = global._mongoClientPromise || new MongoClient(uri)
-let clientPromise = global._mongoClientPromise
-
-clientPromise = client.connect()
+if (process.env.NODE_ENV === 'production') {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri)
+    global._mongoClientPromise = client.connect()
+  }
+  clientPromise = global._mongoClientPromise
+} else {
+  client = new MongoClient(uri)
+  clientPromise = client.connect()
+}
 
 export default clientPromise

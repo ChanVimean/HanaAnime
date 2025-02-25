@@ -15,6 +15,7 @@ const Model = ({ id, onClose }) => {
 
   const [movie, setMovie] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [selectedSeason, setSelectedSeason] = useState("All")
 
   const modelRef = useRef(null)
 
@@ -60,6 +61,22 @@ const Model = ({ id, onClose }) => {
     return () => document.body.style.overflow = "auto"
   }, [id])
 
+  // Handle Season Selection
+  const displayedEpisodes = useMemo(() => {
+    if (!movie?.seasons) return [];
+  
+    // Flatten all episodes from all seasons
+    const allEpisodes = movie.seasons.flatMap((season, index) =>
+      season?.episodes?.map(ep => ({ ...ep, season: index + 1 })) || []
+    );
+  
+    // Filter based on selected season
+    return selectedSeason === "All"
+      ? allEpisodes
+      : allEpisodes.filter(ep => ep.season === parseInt(selectedSeason.replace("Season ", ""), 10));
+  }, [movie, selectedSeason]);
+
+
   if (!id) return null
 
   return (
@@ -87,27 +104,48 @@ const Model = ({ id, onClose }) => {
         </section>
 
         {/* Seasons & Episodes */}
-        <section className="w-2/6 h-1/2">
-          {/* Seasons */}
-          <ul className="flex space-x-4 p-3 bg-red-500 overflow-x-auto scrollbar-hide">
-            <li className="bg-sky-700 rounded-full">Season 1</li>
-            <li className="bg-sky-700 rounded-full">Season 2</li>
-            <li className="bg-sky-700 rounded-full">Season 3</li>
-            <li className="bg-sky-700 rounded-full">Season 4</li>
-            <li className="bg-sky-700 rounded-full">Season 5</li>
-            <li className="bg-sky-700 rounded-full">Season 6</li>
-          </ul>
-          {/* Episodes for each Seasons */}
-          <ul className="space-y-3 p-3 bg-sky-500 overflow-y-scroll scrollbar-hide">
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 1</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 2</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 3</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 4</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 5</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 6</li>
-            <li className="bg-red-700 rounded-full py-2 px-4 text-xl font-medium">Episode 7</li>
-          </ul>
-        </section>
+        {
+          Array.isArray(movie?.seasons) && movie.seasons.length > 0 && (
+            <section className="w-2/6 h-1/2 min-h-[300px">
+              {/* Season List */}
+              <ul className={`${styles.SeasonList} scrollbar-hide`}>
+                <li
+                  onClick={() => setSelectedSeason("All")}
+                  className={`${styles.SeasonItem}
+                              ${selectedSeason === "All" ? styles.SeasonActive : styles.SeasonInactive}`}
+                >
+                  All
+                </li>
+                {movie?.seasons?.map((_, index) => (
+                  <li
+                    key={index}
+                    onClick={() => setSelectedSeason(`Season ${index + 1}`)}
+                    className={`${styles.SeasonItem}
+                                ${selectedSeason === `Season ${index + 1}` ? styles.SeasonActive : styles.SeasonInactive}`}
+                  >
+                    Season {index + 1}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Episodes List */}
+              <ul className={`${styles.Episodes} scrollbar-hide`}>
+                {displayedEpisodes.length > 0 ? (
+                  displayedEpisodes.map(({ season, episode, link }) => (
+                    <li key={`${season}-${episode}`} className={styles.EpisodesItem}>
+                      <a href={link} target="_blank" rel="noopener noreferrer">
+                        S{season} - Episode {episode}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <li className={styles.EpisodesNoItem}>No episodes available</li>
+                )}
+              </ul>
+            </section>
+          )
+        }
+
 
         {/* Full Details */}
         <section className={styles.fullDetails}>

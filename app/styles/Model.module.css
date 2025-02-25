@@ -8,3 +8,15 @@
 .commonDetails { @apply flex justify-between py-2 border-b-2 border-[var(--theme-950)] border-opacity-15 }
 .commonContainer { @apply flex space-x-2 items-center text-center }
 .descriptionContainer { @apply overflow-hidden h-52 pe-2 opacity-75 overflow-y-auto }
+
+/** Seasons & Episodes **/
+.SeasonList { @apply flex space-x-4 p-3 bg-[var(--theme-800)] overflow-x-auto }
+.SeasonItem { @apply px-4 py-2 text-[var(-theme-50)] rounded-full cursor-pointer whitespace-nowrap }
+.SeasonActive { @apply bg-[var(--theme-600)] border border-[var(--theme-200)] hover:bg-[var(--theme-500)] transition ease-in-out duration-150 }
+.SeasonInactive { @apply bg-[var(--theme-900)] hover:bg-[var(--theme-950)] transition ease-in-out duration-150 }
+
+.Episodes { @apply max-h-full h-auto space-y-3 p-3 bg-[var(--theme-900)] text-[#f4f8fb] overflow-y-scroll }
+.EpisodesItem { @apply bg-[var(--theme-500)] rounded-full py-2 px-4 text-xl font-medium }
+.EpisodesNoItem { @apply text-center text-[var(--theme-50)] }
+
+

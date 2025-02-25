@@ -92,10 +92,10 @@ const NavBar = () => {
       className={styles.NarBar}
     >
       {/* Categories Section */}
-      <section className="flex items-center gap-x-2">
+      <section className={styles.CategoriesContainer}>
         {/* Logo Section */}
         <Link href={""} className="me-2">
-          <div className="w-16 h-8 md:w-28 md:h-16 my-2 rounded-lg overflow-hidden">
+          <div className={styles.CategoriesFrame}>
             <img
               className="object-cover w-full h-full"
               src="Hana Anime.png"
@@ -149,18 +149,18 @@ const NavBar = () => {
       </section>
 
       {/* Right Section - Icons & Profile */}
-      <section className="flex items-center gap-x-2 lg:gap-x-4 md:order-2">
+      <section className={styles.RightSection}>
         <div
-          className={`transition-all duration-300 flex items-center
-            ${ showSearch ? "w-64 opacity-100" : "w-0 opacity-0 overflow-hidden" }`}
           ref={inputRef}
+          className={`${styles.RightContainer}
+                      ${ showSearch ? "w-64 opacity-100" : "w-0 opacity-0 overflow-hidden" }`}
         >
           <input
             type="text"
             placeholder="Search movies..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className={`right-0 transition-all duration-300 bg-white text-black px-4 py-2 rounded-lg shadow-md
+            className={`${styles.RigthSearch}
               ${ showSearch ? "w-64 opacity-100 scale-100" : "w-0 opacity-0 scale-90"}`}
           />
         </div>
@@ -170,20 +170,20 @@ const NavBar = () => {
 
         {/* Profile */}
         <div>
-          <IoMdMore onClick={toggleMore} className="hidden lg:block wrap-btn text-3xl" />
+          <IoMdMore onClick={toggleMore} className="hidden lg:block text-3xl wrap-btn" />
 
           {/* User Profile Dropdown */}
           { showMore && (
             <div
               ref={showMoreRef}
-              className="absolute bg-opacity-100 z-10 right-10 mt-2 w-48 bg-[var(--theme-800)] text-[var(--theme-50)] rounded-md text-xl"
+              className={styles.RightDropDown}
             >
               <ul className="space-y-2">
-                <li className="dropdown-item flex items-center gap-x-2">
+                <li className={`dropdown-item ${styles.RightDDMenu}`}>
                   <span><MdPerson /></span>
                   <Link href={""}>Profile</Link>
                 </li>
-                <li className="dropdown-item flex items-center gap-x-2">
+                <li className={`dropdown-item ${styles.RightDDMenu}`}>
                   <button onClick={() => dispatch(toggleTheme())}
                           className="flex items-center gap-x-2"
                   >
@@ -198,7 +198,7 @@ const NavBar = () => {
                   </button>
                 </li>
                 <hr />
-                <li className="dropdown-item flex items-center gap-x-2">
+                <li className={`dropdown-item ${styles.RightDDMenu}`}>
                   <span><RiLogoutBoxRLine /></span>
                   <Link href={""}>Log out</Link>
                 </li>
@@ -217,14 +217,12 @@ const NavBar = () => {
         {/* SideBar On Toggle */}
         <section
           ref={menuRef}
-          className={`fixed top-0 right-0 h-full z-50 transition-transform duration-300 ease-in-out
-            bg-[var(--theme-800)] bg-opacity-100 text-[var(--theme-50)] text-xl p-5 shadow-lg
-            ${showMenu ? "translate-x-0" : "translate-x-full"}
-            w-full sm:w-full md:w-1/2 lg:hidden`}
+          className={`${styles.HamToggleContainer}
+                      ${showMenu ? "translate-x-0" : "translate-x-full"}`}
         >
           <ul className="space-y-3">
             <li>
-              <button className="flex space-x-2 items-center wrap-btn">
+              <button className={`${styles.HamToggleBtn} wrap-btn`}>
                 <Link href={""}>
                   <MdPerson className="text-2xl" />
                 </Link>
@@ -233,7 +231,7 @@ const NavBar = () => {
             </li>
             <hr className="my-2" />
             <li>
-              <button className="flex space-x-2 items-center wrap-btn">
+              <button className={`${styles.HamToggleBtn} wrap-btn`}>
                 <Link href={""}>
                   <IoSettingsOutline className="text-2xl" />
                 </Link>
@@ -241,18 +239,19 @@ const NavBar = () => {
               </button>
             </li>
             <li>
-              <button onClick={(e) => {
-                e.stopPropagation()
-                dispatch(toggleTheme())
-              }}
-                className="flex space-x-2 items-center wrap-btn"
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  dispatch(toggleTheme())
+                }}
+                className={`${styles.HamToggleBtn} wrap-btn`}
               >
                 {darkMode ? <MdOutlineDarkMode className="text-2xl" /> : <MdSunny className="text-2xl" />}
                 <h1>Theme</h1>
               </button>
             </li>
             <li>
-              <button className="flex space-x-2 items-center wrap-btn">
+              <button className={`${styles.HamToggleBtn} wrap-btn`}>
                 <Link href={""}>
                   <HiMiniLanguage className="text-2xl" />
                 </Link>
@@ -260,7 +259,7 @@ const NavBar = () => {
               </button>
             </li>
             <li>
-              <button className="flex space-x-2 items-center wrap-btn">
+              <button className={`${styles.HamToggleBtn} wrap-btn`}>
                 <Link href={""}>
                   <FaMusic className="text-2xl" />
                 </Link>
@@ -269,7 +268,7 @@ const NavBar = () => {
             </li>
             <hr className="my-2" />
             <li>
-              <button className="flex space-x-2 items-center wrap-btn">
+              <button className={`${styles.HamToggleBtn} wrap-btn`}>
                 <Link href={""}>
                   <MdLogout className="text-2xl" />
                 </Link>

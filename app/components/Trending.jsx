@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import styles from "../styles/Carousel.module.css"
+import styles from "../styles/Trending.module.css"
 import FilterItems from "../utils/FilterItems"
 
 
@@ -26,25 +26,25 @@ const Trending = ({ title, data, Key, Value }) => {
   const duplicatedMovies = [...filterMovies, ...filterMovies]
 
   return (
-    <div className="text-[var(--theme-50)] py-5 md:p-5 space-y-4">
-      <h1 className="text-3xl font-semibold ps-4">{title}</h1>
-      <section className={styles.carouselWrapper}>
-        <ul ref={carouselRef} className={styles.carouselTrack}>
+    <div className={styles.TrendContainer}>
+      <h1 className={styles.TrendHeader}>{title}</h1>
+      <section className={styles.TrendWrapper}>
+        <ul ref={carouselRef} className={styles.TrendTrack}>
           { loading ?
             Array.from({ length: 6 }).map((_, index) => (
-                <li key={index} className={styles.coverItem}>
-                  <div className={styles.coverFrame}>
+                <li key={index} className={styles.TrendItem}>
+                  <div className={styles.TrendFrame}>
                     <Skeleton className="w-full h-full bg-[var(--theme-700)]" />
                   </div>
                 </li>
               )
             ) : (
               duplicatedMovies.map((movie, index) =>
-                <li key={`${movie._id}-${index}`} className={styles.coverItem}>
-                  <div className={styles.coverFrame}>
+                <li key={`${movie._id}-${index}`} className={styles.TrendItem}>
+                  <div className={styles.TrendFrame}>
                     <img src={movie.cover}
                         alt={movie.title}
-                        className={styles.coverImage}
+                        className={styles.TrendImage}
                     />
                   </div>
                 </li>

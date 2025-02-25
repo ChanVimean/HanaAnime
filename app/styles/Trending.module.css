@@ -1,0 +1,49 @@
+/***** Trending *****/
+.TrendContainer { @apply text-[var(--theme-50)] py-5 md:p-5 space-y-4 }
+.TrendHeader { @apply text-3xl font-semibold ps-4 }
+
+/***** Items *****/
+.TrendFrame { @apply w-full h-[140px] md:h-[160px] overflow-hidden rounded-md bg-[var(--theme-800)] }
+.TrendImage { @apply object-cover w-full h-full hover:scale-105 duration-200 ease-in-out cursor-pointer hover:brightness-75 }
+
+.TrendItem {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  margin: 0 5px;
+}
+
+.TrendWrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.TrendTrack {
+  display: flex;
+  animation: scroll 160s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+/* Responsive widths for cover images */
+@media (min-width: 1024px) { /* Large screens */
+  .TrendItem { width: calc(100vw / 6 - 18px); } /* 6 items per row */
+}
+
+@media (min-width: 768px ) and (max-width: 1023px) { /* Medium screens */
+  .TrendItem { width: calc(100vw / 3 - 15px); } /* 3 items per row */
+}
+
+@media (max-width: 767px) { /* Small screens */
+  .TrendItem { width: 100vw; } /* 1 item per row */
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/** Hover Pause (Optional) **/
+/* .TrendTrack:hover {
+  animation-play-state: paused;
+} */

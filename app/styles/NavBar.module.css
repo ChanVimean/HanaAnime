@@ -1,6 +1,22 @@
 /**** NavBar ****/
 .NarBar { @apply bg-[var(--theme-900)] text-[var(--theme-50)] px-3 md:px-20 flex justify-between }
 
+/**** Categories ****/
+.CategoriesContainer { @apply flex items-center gap-x-2 z-50 }
+.CategoriesFrame { @apply w-16 h-8 md:w-28 md:h-16 my-2 rounded-lg overflow-hidden }
+
+/**** Right Section - Icons & Profile ****/
+.RightSection { @apply flex items-center gap-x-2 lg:gap-x-4 md:order-2 }
+.RightContainer { @apply transition-all duration-300 flex items-center }
+.RigthSearch { @apply right-0 transition-all duration-300 bg-white text-black px-4 py-2 rounded-lg shadow-md }
+.RightDropDown { @apply absolute bg-opacity-100 z-10 right-10 mt-2 w-48 bg-[var(--theme-800)] text-[var(--theme-50)] rounded-md text-xl }
+.RightDDMenu { @apply flex items-center gap-x-2}
+
+/**** Hamburger Bar ****/
+.HamToggleContainer { @apply fixed top-0 right-0 h-full z-50 transition-transform duration-300 ease-in-out bg-[var(--theme-800)] bg-opacity-100 text-[var(--theme-50)] text-xl p-5 shadow-lg w-full sm:w-full md:w-1/2 lg:hidden }
+.HamToggleBtn { @apply flex space-x-2 items-center }
+
+
 
 
 
